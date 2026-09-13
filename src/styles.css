@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import 'tailwindcss';
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+}
+* {
+  box-sizing: border-box;
+}

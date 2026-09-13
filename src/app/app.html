@@ -1,0 +1,117 @@
+<main class="min-h-screen px-4 py-6 sm:px-8 sm:py-10">
+  <div class="mx-auto flex max-w-6xl flex-col gap-10">
+    <header class="flex items-center justify-between">
+      <a class="brand-mark" href="/" aria-label="えらべる。ホーム">えらべる<span>！</span></a>
+      <span class="header-note">気軽に、えらぶ。</span>
+    </header>
+
+    <section
+      class="hero-grid mx-auto grid w-full max-w-[760px] grid-cols-[minmax(0,1fr)_180px] items-end max-[640px]:grid-cols-[1fr_90px]"
+    >
+      <div class="hero-copy">
+        <p class="eyebrow">迷いを、軽くする</p>
+        <h1>今日は、<br /><em>どれにする？</em></h1>
+        <p class="hero-description">
+          迷ったら、選択肢を並べて<br class="sm:hidden" />
+          ボタンを押すだけ。
+        </p>
+      </div>
+      <div class="hero-doodle" aria-hidden="true"><span>✦</span><span>?</span><span>→</span></div>
+    </section>
+
+    <section
+      class="workspace-grid mx-auto grid w-full max-w-[760px] grid-cols-1 gap-5 md:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)]"
+    >
+      <section class="decision-card">
+        <header class="card-header">
+          <div class="card-heading">
+            <span class="step-number">01</span>
+            <div>
+              <h2>選択肢を並べる</h2>
+              <p>いま思いつくものを、2つ以上。</p>
+            </div>
+          </div>
+        </header>
+        <div class="card-content">
+          <div #optionList class="option-list h-72 overflow-y-auto">
+            @for (option of options(); track $index) {
+              <div class="option-row">
+                <span class="option-index">{{ ($index + 1).toString().padStart(2, '0') }}</span>
+                <span class="option-label">{{ option }}</span>
+                <md-icon-button
+                  type="button"
+                  (click)="removeOption($index)"
+                  aria-label="{{ option }}を削除"
+                >
+                  <md-icon>close</md-icon>
+                </md-icon-button>
+              </div>
+            }
+          </div>
+          <div class="add-option">
+            <div class="option-input-wrap">
+              <md-outlined-text-field
+                class="option-input"
+                label="選択肢を追加"
+                placeholder="例：映画を見る"
+                [value]="newOption()"
+                (input)="updateNewOption($any($event.target).value)"
+                (keyup.enter)="addOption()"
+              >
+              </md-outlined-text-field>
+              <span class="option-counter" aria-live="polite">
+                {{ newOption().length }} / {{ maxOptionLength }}
+              </span>
+            </div>
+            <md-outlined-button class="add-option-button" type="button" (click)="addOption()">
+              <md-icon slot="icon">add</md-icon>
+              追加
+            </md-outlined-button>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="result-card"
+        [class.result-card-active]="hasDecided()"
+        [class.result-card-flash]="resultCardAnimating()"
+      >
+        <div class="card-content">
+          <span class="step-number">02</span>
+          @if (hasDecided()) {
+            <div class="result-content" aria-live="polite">
+              <p class="result-label">今日の答えは…</p>
+              <p class="result-value">{{ result() }}</p>
+              <span class="result-stamp">これでいこう！</span>
+            </div>
+          } @else {
+            <div class="result-empty">
+              <span class="result-question">?</span>
+              <p>ボタンを押すと<br />答えが出ます。</p>
+            </div>
+          }
+          <md-filled-button
+            class="decide-button"
+            type="button"
+            (click)="decide()"
+            [disabled]="options().length < 2"
+            [attr.aria-disabled]="options().length < 2"
+          >
+            <md-icon slot="icon">shuffle</md-icon>
+            {{ hasDecided() ? 'もう一度えらぶ' : 'えらぶ' }}
+          </md-filled-button>
+        </div>
+      </section>
+    </section>
+
+    <div class="ad-slot" aria-label="広告">
+      <!-- <span>ADVERTISEMENT</span>
+      <p>ここに広告が表示されます</p> -->
+    </div>
+
+    <footer>
+      <span>えらべる！</span>
+      <span>ひとりで決められない日に。</span>
+    </footer>
+  </div>
+</main>
