@@ -81,7 +81,9 @@
           @if (hasDecided()) {
             <div class="result-content" aria-live="polite">
               <p class="result-label">今日の答えは…</p>
-              <p class="result-value">{{ result() }}</p>
+              <p class="result-value" [class.result-value-flash]="resultCardAnimating()">
+                {{ result() }}
+              </p>
               <span class="result-stamp">これでいこう！</span>
             </div>
           } @else {

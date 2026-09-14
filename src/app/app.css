@@ -271,6 +271,29 @@ h1 em {
   margin: 0;
   overflow-wrap: anywhere;
 }
+.result-value-flash {
+  animation: result-value-flash 520ms ease-out;
+}
+@keyframes result-value-flash {
+  0% {
+    color: var(--coral-dark);
+    opacity: 0.35;
+    text-shadow: 0 0 0.8rem rgba(200, 93, 72, 0.35);
+    transform: scale(0.96);
+  }
+  45% {
+    color: var(--coral-dark);
+    opacity: 1;
+    text-shadow: 0 0 0.2rem rgba(200, 93, 72, 0.18);
+    transform: scale(1.03);
+  }
+  100% {
+    color: inherit;
+    opacity: 1;
+    text-shadow: none;
+    transform: scale(1);
+  }
+}
 .result-stamp {
   border: 1px solid var(--coral-dark);
   border-radius: 999px;
